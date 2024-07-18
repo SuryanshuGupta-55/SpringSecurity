@@ -1,17 +1,15 @@
 package com.learning.learn_spring_security.basic;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -41,5 +39,31 @@ public class BasicAuthSecurityConfiguration {
         http.httpBasic(withDefaults());
 
         return http.build();
+    }
+    
+    // Storing User Credentials:
+    /*
+    * In Memory : For test purposes. Not recommend in production (application.properties).
+    * Database : We can use JDBC/JPA to access the credentials.
+    * LDAP : Lightweight Directory Access Protocol.
+    * */
+
+    @Bean
+    public UserDetailsService userDetailsService(){
+        Roles USER = Roles.USER;
+        Roles ADMIN = Roles.ADMIN;
+
+        var user = User.withUsername("suryanshu")
+                .password("{noop}dummy")
+                .roles(USER.toString())
+                .build();
+        // {noop} => To not use any encoding we are using this.
+
+        var admin = User.withUsername("admin")
+                .password("{noop}dummy")
+                .roles(ADMIN.toString())
+                .build();
+
+        return new InMemoryUserDetailsManager(user,admin);
     }
 }
