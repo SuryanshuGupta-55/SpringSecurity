@@ -20,10 +20,18 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class BasicAuthSecurityConfiguration {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        RequestMatcher optionsMatcher = new AntPathRequestMatcher("/**", HttpMethod.OPTIONS.toString());
-        http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(optionsMatcher).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/**")).authenticated());
+
+        http.authorizeHttpRequests(
+                auth -> {
+                    auth
+                            .anyRequest().authenticated();
+                });
+
+        http.sessionManagement(
+                session ->
+                        session.sessionCreationPolicy(
+                                SessionCreationPolicy.STATELESS)
+        );
 
         //http.formLogin();
         // Because of this now login and logout page/feature has been removed.
