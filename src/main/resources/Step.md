@@ -29,3 +29,13 @@ The above code is deprecated use:
 
 There is a class as JdbcDaoImpl, there is a file as well users.ddl which creates the Data Structure.
 So, we will use this to setup our database, for user details.
+
+Step => 19, Adding JWT Encoder and Getting started with JWT Resource.
+1. When a user wants to talk to a rest API, he would need to create a JWT token by sending a basic authentication request 
+with username and password.
+2. Response will be a JWT token:
+    
+    Step 1 : Use BasicAuth for getting the JWT Token.
+    Step2-n: Use JWT token as Bearer Token for authenticating request.
+
+

@@ -39,7 +39,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl.DEFAULT_USER_SCHEMA_DDL_LOCATION;
 
 @Configuration
-@EnableMethodSecurity(jsr250Enabled = true, securedEnabled = true)
+//@EnableMethodSecurity(jsr250Enabled = true, securedEnabled = true)
 public class JwtSecurityConfiguration {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
