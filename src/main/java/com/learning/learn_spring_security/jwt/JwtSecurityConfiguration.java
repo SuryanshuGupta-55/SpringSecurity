@@ -163,4 +163,9 @@ public class JwtSecurityConfiguration {
         return NimbusJwtDecoder
                 .withPublicKey(rsaKey.toRSAPublicKey()).build();
     }
+    // 5. Use JWKSource for Encoding.
+    @Bean
+    public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource){
+        return new NimbusJwtEncoder(jwkSource);
+    }
 }
